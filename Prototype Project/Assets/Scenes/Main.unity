@@ -190,9 +190,10 @@ GameObject:
   - component: {fileID: 1012912727}
   - component: {fileID: 1012912726}
   - component: {fileID: 1012912730}
+  - component: {fileID: 1012912731}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -257,8 +258,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1012912725}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.5, z: -5}
-  m_LocalScale: {x: 1, y: 1, z: 0.22}
+  m_LocalPosition: {x: 0, y: -1.5, z: -1.25}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.22}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -274,6 +275,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26117db4156ec404c821b50a645c31b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &1012912731
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1012912725}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1675157885
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,7 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af7af852fb7d434f88690e57e30ba8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IcePlatform: {fileID: 1007401840597410, guid: cf3b1fd8728b3b147acc42ad506e204e,
+  MovingPlatform: {fileID: 1540173746125162, guid: 1b467fd4217bdac4aa6331148077f103,
     type: 2}
 --- !u!4 &1962318618
 Transform:

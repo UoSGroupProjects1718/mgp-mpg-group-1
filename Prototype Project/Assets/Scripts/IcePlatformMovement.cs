@@ -23,7 +23,7 @@ public class IcePlatformMovement : MonoBehaviour
             if(Mathf.Abs(transform.position.x) >= HorizontalTravel)
                 movingRight = !movingRight;
 
-            transform.Translate((movingRight ? new Vector3(0, 1) : new Vector3(0, -1)) * movementSpeed * Time.deltaTime);
+            transform.Translate((movingRight ? new Vector3(1, 0) : new Vector3(-1, 0)) * movementSpeed * Time.deltaTime);
         }
     }
 }

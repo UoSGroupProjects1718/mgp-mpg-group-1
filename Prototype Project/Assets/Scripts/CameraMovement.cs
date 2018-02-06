@@ -11,7 +11,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Start()
     {
-        movementSpeed = 0.75f;
+        movementSpeed = 0.5f;
         timePassed = Time.time;
     }
 
@@ -23,7 +23,7 @@ public class CameraMovement : MonoBehaviour
         if(Time.timeScale != 0)
         {
             // Every 2 seconds, increase camera movement speed by 0.125f
-            if(Time.time - timePassed >= 2f)
+            if(Time.time - timePassed >= 4f)
             {
                 movementSpeed += 0.125f;
                 timePassed = Time.time;

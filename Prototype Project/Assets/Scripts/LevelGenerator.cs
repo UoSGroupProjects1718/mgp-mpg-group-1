@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
-    public GameObject IcePlatform;
+    public GameObject MovingPlatform;
 
     private const int numberOfPlatforms = 100;
     private GameObject[] icePlatforms;
@@ -23,9 +23,9 @@ public class LevelGenerator : MonoBehaviour
 
         for(int i = 0; i < numberOfPlatforms; ++i)
         {
-            icePlatforms[i] = Instantiate(IcePlatform,
+            icePlatforms[i] = Instantiate(MovingPlatform,
                                           new Vector3(Random.Range(-2.5f, 2.5f), yPosition, 0),
-                                          Quaternion.Euler(0, 0, 90 + Random.Range(-1.5f, 1.5f)),
+                                          Quaternion.Euler(0, 0, Random.Range(-1.5f, 1.5f)),
                                           icePlatformsParent.transform);
 
             yPosition += 1.5f;
