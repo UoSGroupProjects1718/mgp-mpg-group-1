@@ -8,6 +8,7 @@ public class CameraMovement : MonoBehaviour
 
     private float movementSpeed;
     private float timePassed;
+	float SpeedMult = 1f;
 
     private void Start()
     {
@@ -20,16 +21,27 @@ public class CameraMovement : MonoBehaviour
         if(transform.position.y - Character.transform.position.y >= 5f)
             Time.timeScale = 0;
 
+		float cameraDistance = transform.position.y - Character.transform.position.y;
+
+		if (cameraDistance <= -5f) 
+		{
+			SpeedMult = 10f;
+		} 
+		else 
+		{
+			SpeedMult = 1f;
+		}
+
         if(Time.timeScale != 0)
         {
             // Every 2 seconds, increase camera movement speed by 0.125f
-            if(Time.time - timePassed >= 4f)
+            /*if(Time.time - timePassed >= 4f)
             {
                 movementSpeed += 0.125f;
                 timePassed = Time.time;
-            }
+            }*/
 
-            transform.position += Vector3.up * movementSpeed * Time.deltaTime;
+            transform.position += Vector3.up * movementSpeed * SpeedMult * Time.deltaTime;
         }
     }
 }
