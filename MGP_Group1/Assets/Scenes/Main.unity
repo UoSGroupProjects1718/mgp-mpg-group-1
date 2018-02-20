@@ -520,8 +520,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1739945029}
   - component: {fileID: 1739945028}
-  - component: {fileID: 1739945027}
   - component: {fileID: 1739945030}
+  - component: {fileID: 1739945027}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -540,6 +540,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd33e3249b362c4f9579c2b88e6e9d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  P1ScoreText: {fileID: 1094551661}
+  P2ScoreText: {fileID: 2058585394}
   MovingPlatform: {fileID: 1118997816621226, guid: 8526478c0edbc42429090333186e696f,
     type: 2}
   InitialYPosition: -2

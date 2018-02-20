@@ -1,29 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private int score = 0;
+    private int PlayerNum = 0;
 
-    public int Score
-    {
-        get { return score; }
-        set { score += value; }
-    }
+    private int P1Score = 0;
+    public Text P1ScoreText;
+    private int P2Score = 0;
+    public Text P2ScoreText;
 
     public GameObject MovingPlatform;
 
     private const int numberOfPlatforms = 100;
     private GameObject[] Platforms;
 
-    private int currentPlatform;
+    private int currentPlatform = 0;
 
     public float InitialYPosition = 0;
 
     private void Start()
     {
-        currentPlatform = 0;
+        P1ScoreText.text = "Player 1 Score: " + P1Score;
+        P2ScoreText.text = "Player 2 Score: " + P2Score;
 
         GameObject PlatformsParent = new GameObject("Ice Platforms");
 
@@ -55,16 +56,17 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "Point0")
         {
-            score += 5;
+            P1Score += 5;
         }
         else if (other.gameObject.tag == "Point1")
         {
-            score += 3;
+            P1Score += 3;
         }
         else if (other.gameObject.tag == "Point2")
         {
-            score += 1;
+            P1Score += 1;
         }
-        Debug.Log(score.ToString());
+        P1ScoreText.text = "Player 1 Score: " + P1Score;
+        P2ScoreText.text = "Player 2 Score: " + P2Score;
     }
 }
