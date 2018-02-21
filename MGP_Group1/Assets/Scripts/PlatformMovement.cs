@@ -18,12 +18,17 @@ public class PlatformMovement : MonoBehaviour
 
     private void Update()
     {
-        if (IsMoving)
+        if (IsMoving && movingRight)
         {
-            if (Mathf.Abs(transform.position.x) >= HorizontalTravel)
-                movingRight = !movingRight;
-
-            transform.Translate((movingRight ? new Vector3(1, 0) : new Vector3(-1, 0)) * movementSpeed * Time.deltaTime);
+            if (transform.position.x >= HorizontalTravel)
+                movingRight = false;
         }
+        else if (IsMoving && !movingRight)
+        {
+            if (transform.position.x <= -HorizontalTravel)
+                movingRight = true;
+        }
+        if (IsMoving)
+            transform.Translate((movingRight ? new Vector3(1, 0) : new Vector3(-1, 0)) * movementSpeed * Time.deltaTime);
     }
 }

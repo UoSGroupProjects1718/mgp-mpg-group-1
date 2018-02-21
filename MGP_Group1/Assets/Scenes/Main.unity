@@ -200,12 +200,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 72654609}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &678100720
 GameObject:
@@ -487,7 +487,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: def4a9268bfae234ab0b5fc1d38bb891, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -509,7 +509,7 @@ Transform:
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1739945026
 GameObject:
@@ -542,8 +542,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   P1ScoreText: {fileID: 1094551661}
   P2ScoreText: {fileID: 2058585394}
-  MovingPlatform: {fileID: 1118997816621226, guid: 8526478c0edbc42429090333186e696f,
-    type: 2}
+  MovingPlatforms:
+  - {fileID: 1118997816621226, guid: 8526478c0edbc42429090333186e696f, type: 2}
+  - {fileID: 1200622571875606, guid: f89f446c201c47340b54aea06d3ed526, type: 2}
+  - {fileID: 1396989014586620, guid: fa5a8f7c55a18e94fbde05bd28c141b5, type: 2}
   InitialYPosition: -2
 --- !u!212 &1739945028
 SpriteRenderer:
@@ -578,7 +580,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 50b06ed8641a40c4a8e891fbce3fd7b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

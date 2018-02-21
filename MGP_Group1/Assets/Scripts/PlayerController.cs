@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private int P2Score = 0;
     public Text P2ScoreText;
 
-    public GameObject MovingPlatform;
+    public GameObject[] MovingPlatforms;
 
     private const int numberOfPlatforms = 100;
     private GameObject[] Platforms;
@@ -31,13 +31,12 @@ public class PlayerController : MonoBehaviour
 
         Platforms = new GameObject[numberOfPlatforms];
 
-
         for (int i = 0; i < numberOfPlatforms; ++i)
         {
-            Platforms[i] = Instantiate(MovingPlatform,
-                                          new Vector3(Random.Range(-2.5f, 2.5f), InitialYPosition, 0),
-                                          Quaternion.Euler(0, 0, Random.Range(-1.5f, 1.5f)),
-                                          PlatformsParent.transform);
+            Platforms[i] = Instantiate(MovingPlatforms[Random.Range(0, 3)],
+                                       new Vector3(Random.Range(-2.5f, 2.5f), InitialYPosition, 0),
+                                       Quaternion.Euler(0, 0, Random.Range(-1.5f, 1.5f)),
+                                       PlatformsParent.transform);
 
             InitialYPosition += 1.5f;
         }
@@ -50,13 +49,14 @@ public class PlayerController : MonoBehaviour
             transform.Translate(new Vector3(0, 1.5f, 0));
             Platforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
             ++currentPlatform;
-            SetPlayerTurn(); //Calling this here makes player 2 start but everything else works as intended
+            SetPlayerTurn();
         }
     }
-
-    //Detects collision with objects on exactly equal z position
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
+        //Debug.Log(other.gameObject.name);
+        
         if (PlayerNum == 0)
         {
             if (other.gameObject.tag == "Point0")
@@ -89,6 +89,11 @@ public class PlayerController : MonoBehaviour
         }
         P1ScoreText.text = "Player 1 Score: " + P1Score;
         P2ScoreText.text = "Player 2 Score: " + P2Score;
+    }
+
+    private void OnCollisionStay2D(Collision2D other)
+    {
+
     }
 
     private void SetPlayerTurn()
