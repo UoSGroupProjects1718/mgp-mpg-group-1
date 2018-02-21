@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        SetPlayerTurn();
         P1ScoreText.text = "Player 1 Score: " + P1Score;
         P2ScoreText.text = "Player 2 Score: " + P2Score;
 
@@ -49,24 +50,49 @@ public class PlayerController : MonoBehaviour
             transform.Translate(new Vector3(0, 1.5f, 0));
             Platforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
             ++currentPlatform;
+            SetPlayerTurn(); //Calling this here makes player 2 start but everything else works as intended
         }
     }
 
+    //Detects collision with objects on exactly equal z position
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Point0")
+        if (PlayerNum == 0)
         {
-            P1Score += 5;
+            if (other.gameObject.tag == "Point0")
+            {
+                P1Score += 5;
+            }
+            else if (other.gameObject.tag == "Point1")
+            {
+                P1Score += 3;
+            }
+            else if (other.gameObject.tag == "Point2")
+            {
+                P1Score += 1;
+            }
         }
-        else if (other.gameObject.tag == "Point1")
+        else if (PlayerNum == 1)
         {
-            P1Score += 3;
-        }
-        else if (other.gameObject.tag == "Point2")
-        {
-            P1Score += 1;
+            if (other.gameObject.tag == "Point0")
+            {
+                P2Score += 5;
+            }
+            else if (other.gameObject.tag == "Point1")
+            {
+                P2Score += 3;
+            }
+            else if (other.gameObject.tag == "Point2")
+            {
+                P2Score += 1;
+            }
         }
         P1ScoreText.text = "Player 1 Score: " + P1Score;
         P2ScoreText.text = "Player 2 Score: " + P2Score;
+    }
+
+    private void SetPlayerTurn()
+    {
+        PlayerNum = currentPlatform % 2;
     }
 }
