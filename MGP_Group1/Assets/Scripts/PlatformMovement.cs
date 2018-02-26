@@ -10,8 +10,6 @@ public class PlatformMovement : MonoBehaviour
     private float movementSpeed;
     private bool movingRight = true;
 
-    private float SpeedMult = 1f;
-
     private void Start()
     {
         IsMoving = true;
@@ -20,10 +18,6 @@ public class PlatformMovement : MonoBehaviour
 
     private void Update()
     {
-        if ((Time.timeScale != 0) && (Input.GetKeyDown(KeyCode.Space)))
-        {
-            SpeedMult += 0.05f;
-        }
         if (IsMoving && movingRight)
         {
             if (transform.position.x >= HorizontalTravel)
@@ -35,6 +29,6 @@ public class PlatformMovement : MonoBehaviour
                 movingRight = true;
         }
         if (IsMoving)
-            transform.Translate((movingRight ? new Vector3(1, 0) : new Vector3(-1, 0)) * movementSpeed * Time.deltaTime * SpeedMult);
+            transform.Translate((movingRight ? new Vector3(1, 0) : new Vector3(-1, 0)) * movementSpeed * Time.deltaTime);
     }
 }
