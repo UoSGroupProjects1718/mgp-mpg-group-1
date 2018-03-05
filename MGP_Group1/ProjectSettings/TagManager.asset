@@ -8,7 +8,7 @@ TagManager:
   - Point0
   - Point1
   - Point2
-  - DeadZone
+  - PowerUp0
   layers:
   - Default
   - TransparentFX

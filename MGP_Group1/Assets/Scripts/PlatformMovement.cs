@@ -11,6 +11,12 @@ public class PlatformMovement : MonoBehaviour
     private bool movingRight = true;
 
     private float SpeedMult = 1f;
+    private float PowerUpMult = 1f;
+    public float PowerUpTimer 
+    {
+        get { return PowerUpMult; }
+        set { PowerUpMult *= value; }
+    }
 
     private void Start()
     {
@@ -18,12 +24,15 @@ public class PlatformMovement : MonoBehaviour
         movementSpeed = Random.Range(3f, 6f);
     }
 
-    private void Update()
-    {
-        if ((Time.timeScale != 0) && (Input.GetKeyDown(KeyCode.Space)))
+    private void Update() {
+        //foreach (Touch touch in Input.touches) 
+        //{
+        //    if ((Time.timeScale != 0) && (touch.phase == TouchPhase.Began))
+        if ((Time.timeScale != 0) && (Input.GetKeyDown(KeyCode.Space))) 
         {
             SpeedMult += 0.05f;
         }
+        //}
         if (IsMoving && movingRight)
         {
             if (transform.position.x >= HorizontalTravel)
@@ -35,6 +44,6 @@ public class PlatformMovement : MonoBehaviour
                 movingRight = true;
         }
         if (IsMoving)
-            transform.Translate((movingRight ? new Vector3(1, 0) : new Vector3(-1, 0)) * movementSpeed * Time.deltaTime * SpeedMult);
+            transform.Translate((movingRight ? new Vector3(1, 0) : new Vector3(-1, 0)) * movementSpeed * Time.deltaTime * SpeedMult * PowerUpMult);
     }
 }
