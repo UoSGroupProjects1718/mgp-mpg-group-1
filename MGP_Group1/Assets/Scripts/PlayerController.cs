@@ -5,18 +5,17 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private int PlayerNum = 0;
+    //private int PlayerNum = 0;
+    private bool Player1Turn = true;
 
     private int P1Score = 0;
     public Text P1ScoreText;
-    private int P1Lives = 3;
     private int P2Score = 0;
     public Text P2ScoreText;
-    private int P2Lives = 3;
 
     public GameObject[] MovingPlatforms;
 
-    private const int numberOfPlatforms = 100;
+    public const int numberOfPlatforms = 100;
     private GameObject[] Platforms;
 
     private int currentPlatform = 0;
@@ -57,57 +56,58 @@ public class PlayerController : MonoBehaviour
                 Time.timeScale = 0;
             }
         }
-        if ((Time.timeScale != 0) && (Input.GetKeyDown(KeyCode.Space)))
-        //foreach (Touch touch in Input.touches) 
-        //{
-        //    if ((Time.timeScale != 0) && (touch.phase == TouchPhase.Began))
-            {
-                onPlatform = false;
-                transform.Translate(new Vector3(0, 1.5f, 0));
-                Platforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
-                ++currentPlatform;
-                SetPlayerTurn();
-                noPlatformFrameCount = 0;
-            }
-        //}
+        if ((Time.timeScale != 0) && (((Input.touchCount > 0) && (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began) && (Input.GetTouch(Input.touchCount - 1).position.x < 0 == Player1Turn)) || (Input.GetKeyDown(KeyCode.Space))))
+        {
+            onPlatform = false;
+            transform.Translate(new Vector3(0, 1.5f, 0));
+            Platforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
+            ++currentPlatform;
+            SetPlayerTurn();
+            noPlatformFrameCount = 0;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log(other.gameObject.name);
         if (other.gameObject.tag == "Platform")
         {
             onPlatform = true;
         }
-        if (other.gameObject.tag == "Point0") 
+        else if (other.gameObject.tag == "Point0") 
         {
-            if (PlayerNum == 1) 
+            //if (PlayerNum == 1)
+            if (Player1Turn)
             {
                 P1Score += 5;
             }
-            else if (PlayerNum == 2) 
+            //else if (PlayerNum == 2) 
+            else if (!Player1Turn)
             {
                 P2Score += 5;
             }
         }
         else if (other.gameObject.tag == "Point1") 
         {
-            if (PlayerNum == 1) 
+            //if (PlayerNum == 1)
+            if (Player1Turn)
             {
                 P1Score += 3;
             }
-            else if (PlayerNum == 2) 
+            //else if (PlayerNum == 2) 
+            else if (!Player1Turn)
             {
                 P2Score += 3;
             }
         }
         else if (other.gameObject.tag == "Point2") 
         {
-            if (PlayerNum == 1) 
+            //if (PlayerNum == 1)
+            if (Player1Turn)
             {
                 P1Score += 1;
             }
-            else if (PlayerNum == 2) 
+            //else if (PlayerNum == 2) 
+            else if (!Player1Turn)
             {
                 P2Score += 1;
             }
@@ -125,7 +125,8 @@ public class PlayerController : MonoBehaviour
 
     private void SetPlayerTurn()
     {
-        PlayerNum = (currentPlatform + 1) % 2;
-        PlayerNum++;
+        //PlayerNum = (currentPlatform + 1) % 2;
+        //PlayerNum++;
+        Player1Turn = !Player1Turn;
     }
 }

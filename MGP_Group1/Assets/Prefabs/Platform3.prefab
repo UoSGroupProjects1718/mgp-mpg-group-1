@@ -448,7 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsMoving: 0
-  HorizontalTravel: 6
+  HorizontalTravel: 5
 --- !u!212 &212128983860861420
 SpriteRenderer:
   m_ObjectHideFlags: 1

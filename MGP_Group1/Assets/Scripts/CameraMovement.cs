@@ -7,13 +7,13 @@ public class CameraMovement : MonoBehaviour
     public GameObject Character;
 
     private float movementSpeed;
-    private float timePassed;
+    //private float timePassed;
     float SpeedMult = 1f;
 
     private void Start()
     {
         movementSpeed = 0.5f;
-        timePassed = Time.time;
+        //timePassed = Time.time;
     }
 
     private void Update()

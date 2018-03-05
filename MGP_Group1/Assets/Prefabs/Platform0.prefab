@@ -404,7 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsMoving: 0
-  HorizontalTravel: 6
+  HorizontalTravel: 5
 --- !u!114 &114058072157138232
 MonoBehaviour:
   m_ObjectHideFlags: 1

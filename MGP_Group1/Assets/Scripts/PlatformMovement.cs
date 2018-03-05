@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlatformMovement : MonoBehaviour
 {
     public bool IsMoving;
-    public float HorizontalTravel = 6f;
+    public float HorizontalTravel = 5f;
 
     private float movementSpeed;
     private bool movingRight = true;
@@ -24,15 +24,12 @@ public class PlatformMovement : MonoBehaviour
         movementSpeed = Random.Range(3f, 6f);
     }
 
-    private void Update() {
-        //foreach (Touch touch in Input.touches) 
-        //{
-        //    if ((Time.timeScale != 0) && (touch.phase == TouchPhase.Began))
-        if ((Time.timeScale != 0) && (Input.GetKeyDown(KeyCode.Space))) 
+    private void Update()
+    {
+        if ((Time.timeScale != 0) && (((Input.touchCount > 0) && (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)) || (Input.GetKeyDown(KeyCode.Space))))
         {
             SpeedMult += 0.05f;
         }
-        //}
         if (IsMoving && movingRight)
         {
             if (transform.position.x >= HorizontalTravel)
