@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        SetPlayerTurn();
         P1ScoreText.text = "Player 1 Score: " + P1Score;
         P2ScoreText.text = "Player 2 Score: " + P2Score;
 
@@ -56,14 +55,32 @@ public class PlayerController : MonoBehaviour
                 Time.timeScale = 0;
             }
         }
-        if ((Time.timeScale != 0) && (((Input.touchCount > 0) && (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began) && (Input.GetTouch(Input.touchCount - 1).position.x < 0 == Player1Turn)) || (Input.GetKeyDown(KeyCode.Space))))
+        if (Time.timeScale != 0)
         {
-            onPlatform = false;
-            transform.Translate(new Vector3(0, 1.5f, 0));
-            Platforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
-            ++currentPlatform;
-            SetPlayerTurn();
-            noPlatformFrameCount = 0;
+            if (Input.touchCount > 0)
+            {
+                if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
+                {
+                    if (Input.GetTouch(Input.touchCount - 1).position.x < Screen.width/2 == Player1Turn)
+                    {
+                        onPlatform = false;
+                        transform.Translate(new Vector3(0, 1.5f, 0));
+                        Platforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
+                        ++currentPlatform;
+                        SetPlayerTurn();
+                        noPlatformFrameCount = 0;
+                    }    
+                }    
+            }
+            else if (Input.GetKeyDown(KeyCode.Space)) 
+            {
+                onPlatform = false;
+                transform.Translate(new Vector3(0, 1.5f, 0));
+                Platforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
+                ++currentPlatform;
+                SetPlayerTurn();
+                noPlatformFrameCount = 0;
+            }
         }
     }
 
@@ -128,5 +145,10 @@ public class PlayerController : MonoBehaviour
         //PlayerNum = (currentPlatform + 1) % 2;
         //PlayerNum++;
         Player1Turn = !Player1Turn;
+    }
+
+    public void OnMouseDown(bool player1)
+    {
+        
     }
 }
