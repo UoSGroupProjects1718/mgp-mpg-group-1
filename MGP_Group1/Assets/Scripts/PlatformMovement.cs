@@ -10,7 +10,12 @@ public class PlatformMovement : MonoBehaviour
     private float movementSpeed;
     private bool movingRight = true;
 
-    private float SpeedMult = 1f;
+    private static float SpeedMult = 1f;
+    public static float SpeedMultiplier
+    {
+        get { return SpeedMult; }
+        set { SpeedMult += value; }
+    }
     private float PowerUpMult = 1f;
     public float PowerUpTimer 
     {
@@ -18,18 +23,21 @@ public class PlatformMovement : MonoBehaviour
         set { PowerUpMult *= value; }
     }
 
-    private void Start()
+    public GameObject[] PickUps;
+
+    private void OnEnable()
     {
         IsMoving = true;
         movementSpeed = Random.Range(3f, 6f);
+        for (int i = 0; i < PickUps.Length; i++)
+        {
+            PickUps[i].SetActive(true);
+        }
+        PowerUpMult = 1f;
     }
 
     private void Update()
     {
-        if ((Time.timeScale != 0) && (((Input.touchCount > 0) && (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)) || (Input.GetKeyDown(KeyCode.Space))))
-        {
-            SpeedMult += 0.05f;
-        }
         if (IsMoving && movingRight)
         {
             if (transform.position.x >= HorizontalTravel)

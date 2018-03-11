@@ -394,6 +394,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsMoving: 0
   HorizontalTravel: 5
+  PickUps:
+  - {fileID: 1028901423830564}
+  - {fileID: 1008795399348414}
+  - {fileID: 1027385597727516}
+  - {fileID: 1124917991423776}
+  - {fileID: 1535254246281826}
 --- !u!114 &114624842187891736
 MonoBehaviour:
   m_ObjectHideFlags: 1

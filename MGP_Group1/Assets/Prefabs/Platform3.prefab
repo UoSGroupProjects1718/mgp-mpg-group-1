@@ -449,6 +449,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsMoving: 0
   HorizontalTravel: 5
+  PickUps:
+  - {fileID: 1908439748808302}
+  - {fileID: 1482061360448050}
+  - {fileID: 1057438900207264}
+  - {fileID: 1276957676549026}
+  - {fileID: 1906122862025716}
 --- !u!212 &212128983860861420
 SpriteRenderer:
   m_ObjectHideFlags: 1

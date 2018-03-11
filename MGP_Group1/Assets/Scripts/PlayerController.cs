@@ -16,32 +16,66 @@ public class PlayerController : MonoBehaviour
     public GameObject[] MovingPlatforms;
 
     public const int numberOfPlatforms = 100;
-    private GameObject[] Platforms;
 
     private int currentPlatform = 0;
 
-    public float InitialYPosition = 0;
+    public float YPosition = 0;
 
     private bool onPlatform = true;
     private int noPlatformFrameCount = 0;
+
+    public int PooledAmount = 20;
+    private List<GameObject> Platforms;
+    private List<GameObject> ActivePlatforms;
 
     private void Start()
     {
         P1ScoreText.text = "Player 1 Score: " + P1Score;
         P2ScoreText.text = "Player 2 Score: " + P2Score;
 
-        GameObject PlatformsParent = new GameObject("Ice Platforms");
+        //GameObject PlatformsParent = new GameObject("Ice Platforms");
 
-        Platforms = new GameObject[numberOfPlatforms];
-
-        for (int i = 0; i < numberOfPlatforms; ++i)
+        Platforms = new List<GameObject>();
+        for (int i = 0; i < PooledAmount; i++)
         {
-            Platforms[i] = Instantiate(MovingPlatforms[Random.Range(0, MovingPlatforms.Length)],
-                                       new Vector3(Random.Range(-2.5f, 2.5f), InitialYPosition, 0),
-                                       Quaternion.Euler(0, 0, Random.Range(-1.5f, 1.5f)),
-                                       PlatformsParent.transform);
+            GameObject obj = (GameObject)Instantiate(MovingPlatforms[0]);
+            obj.SetActive(false);
+            Platforms.Add(obj);
+        }
+        for (int i = 0; i < PooledAmount/4; i++)
+        {
+            GameObject obj = (GameObject)Instantiate(MovingPlatforms[1]);
+            obj.SetActive(false);
+            Platforms.Add(obj);
+        }
+        for (int i = 0; i < PooledAmount/4; i++)
+        {
+            GameObject obj = (GameObject)Instantiate(MovingPlatforms[2]);
+            obj.SetActive(false);
+            Platforms.Add(obj);
+        }
+        for (int i = 3; i < MovingPlatforms.Length; i++)
+        {
+            GameObject obj = (GameObject)Instantiate(MovingPlatforms[i]);
+            obj.SetActive(false);
+            Platforms.Add(obj);
+        }
 
-            InitialYPosition += 1.5f;
+        ActivePlatforms = new List<GameObject>();
+
+        //for (int i = 0; i < numberOfPlatforms; ++i)
+        //{
+        //    Platforms[i] = Instantiate(MovingPlatforms[Random.Range(0, MovingPlatforms.Length)],
+        //                               new Vector3(Random.Range(-2.5f, 2.5f), InitialYPosition, 0),
+        //                               Quaternion.Euler(0, 0, Random.Range(-1.5f, 1.5f)),
+        //                               PlatformsParent.transform);
+
+        //    InitialYPosition += 1.5f;
+        //}
+
+        for (int i = 0; i < 10; i++)
+        {
+            EnablePlatform();
         }
     }
 
@@ -65,10 +99,16 @@ public class PlayerController : MonoBehaviour
                     {
                         onPlatform = false;
                         transform.Translate(new Vector3(0, 1.5f, 0));
-                        Platforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
+                        ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
                         ++currentPlatform;
                         SetPlayerTurn();
                         noPlatformFrameCount = 0;
+                        PlatformMovement.SpeedMultiplier = 0.05f; //Increases all platforms' speed by this amount
+                        EnablePlatform();
+                        if (currentPlatform > 9)
+                        {
+                            ActivePlatforms[currentPlatform - 10].SetActive(false);
+                        }
                     }    
                 }    
             }
@@ -76,10 +116,16 @@ public class PlayerController : MonoBehaviour
             {
                 onPlatform = false;
                 transform.Translate(new Vector3(0, 1.5f, 0));
-                Platforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
+                ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
                 ++currentPlatform;
                 SetPlayerTurn();
                 noPlatformFrameCount = 0;
+                PlatformMovement.SpeedMultiplier = 0.05f; //Increases all platforms' speed by this amount
+                EnablePlatform();
+                if (currentPlatform > 9)
+                {
+                    ActivePlatforms[currentPlatform - 10].SetActive(false);
+                }
             }
         }
     }
@@ -133,7 +179,7 @@ public class PlayerController : MonoBehaviour
         {
             for(int i = 0; i < 3; i++) 
             {
-                Platforms[currentPlatform + i].GetComponent<PlatformMovement>().PowerUpTimer = 2f;
+                ActivePlatforms[currentPlatform + i].GetComponent<PlatformMovement>().PowerUpTimer = 2f;
             }
         }
         P1ScoreText.text = "Player 1 Score: " + P1Score;
@@ -147,8 +193,16 @@ public class PlayerController : MonoBehaviour
         Player1Turn = !Player1Turn;
     }
 
-    public void OnMouseDown(bool player1)
+    private void EnablePlatform()
     {
-        
+        int i = Random.Range(0, Platforms.Count);
+        if (!Platforms[i].activeInHierarchy)
+        {
+            Platforms[i].transform.position = new Vector3(Random.Range(-2.5f, 2.5f), YPosition, 0);
+            Platforms[i].SetActive(true);
+            YPosition += 1.5f;
+            ActivePlatforms.Add(Platforms[i]);
+        }
+        else EnablePlatform();
     }
 }
