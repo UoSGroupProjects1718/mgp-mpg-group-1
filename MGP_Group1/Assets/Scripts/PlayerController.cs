@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     //private int PlayerNum = 0;
-    private bool Player1Turn = true;
+    private bool Player1Turn = false;
 
     private int P1Score = 0;
     public Text P1ScoreText;
