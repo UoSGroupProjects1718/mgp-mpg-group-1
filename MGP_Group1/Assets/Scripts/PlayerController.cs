@@ -87,6 +87,19 @@ public class PlayerController : MonoBehaviour
             if (noPlatformFrameCount >= 5)
             {
                 Time.timeScale = 0;
+                //if (currentPlatform > 9)
+                //{
+                //    ActivePlatforms[currentPlatform - 10].SetActive(true);
+                //}
+                //ActivePlatforms[ActivePlatforms.Count - 1].SetActive(false);
+                //YPosition -= 1.5f;
+                //PlatformMovement.SpeedMultiplier = -0.05f;
+                //noPlatformFrameCount = 0;
+                //SetPlayerTurn();
+                //currentPlatform--;
+                //ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = true;
+                //transform.Translate(new Vector3(0, -1.5f, 0));
+                //onPlatform = true;
             }
         }
         if (Time.timeScale != 0)
