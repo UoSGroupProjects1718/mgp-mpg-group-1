@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     public int PooledAmount = 20;
     private List<GameObject> Platforms;
-    private List<GameObject> ActivePlatforms;
+    public List<GameObject> ActivePlatforms;
 
     private void Start()
     {
@@ -92,13 +92,12 @@ public class PlayerController : MonoBehaviour
                     ActivePlatforms[currentPlatform - 10].SetActive(true);
                 }
                 ActivePlatforms[ActivePlatforms.Count - 1].SetActive(false);
-                
+                ActivePlatforms.RemoveAt(ActivePlatforms.Count - 1);
                 YPosition -= 1.5f;
                 PlatformMovement.SpeedMultiplier = -0.05f;
                 noPlatformFrameCount = 0;
                 SetPlayerTurn();
                 currentPlatform--;
-                //Debug.Log("reducing current platform");
                 ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = true;
                 transform.Translate(new Vector3(0, -1.5f, 0));
                 onPlatform = true;
@@ -114,11 +113,7 @@ public class PlayerController : MonoBehaviour
                     {
                         onPlatform = false;
                         transform.Translate(new Vector3(0, 1.5f, 0));
-                        if(ActivePlatforms[currentPlatform] != null)
-                            ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
-
-                      
-
+                        ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
                         ++currentPlatform;
                         SetPlayerTurn();
                         noPlatformFrameCount = 0;
@@ -135,8 +130,6 @@ public class PlayerController : MonoBehaviour
             {
                 onPlatform = false;
                 transform.Translate(new Vector3(0, 1.5f, 0));
-                Debug.Log(currentPlatform);
-                Debug.Log(ActivePlatforms.Count);
                 ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
                 ++currentPlatform;
                 SetPlayerTurn();
