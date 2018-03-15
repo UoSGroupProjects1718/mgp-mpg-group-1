@@ -86,20 +86,22 @@ public class PlayerController : MonoBehaviour
             noPlatformFrameCount++;
             if (noPlatformFrameCount >= 5)
             {
-                Time.timeScale = 0;
-                //if (currentPlatform > 9)
-                //{
-                //    ActivePlatforms[currentPlatform - 10].SetActive(true);
-                //}
-                //ActivePlatforms[ActivePlatforms.Count - 1].SetActive(false);
-                //YPosition -= 1.5f;
-                //PlatformMovement.SpeedMultiplier = -0.05f;
-                //noPlatformFrameCount = 0;
-                //SetPlayerTurn();
-                //currentPlatform--;
-                //ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = true;
-                //transform.Translate(new Vector3(0, -1.5f, 0));
-                //onPlatform = true;
+                //Time.timeScale = 0;
+                if (currentPlatform > 9)
+                {
+                    ActivePlatforms[currentPlatform - 10].SetActive(true);
+                }
+                ActivePlatforms[ActivePlatforms.Count - 1].SetActive(false);
+                
+                YPosition -= 1.5f;
+                PlatformMovement.SpeedMultiplier = -0.05f;
+                noPlatformFrameCount = 0;
+                SetPlayerTurn();
+                currentPlatform--;
+                //Debug.Log("reducing current platform");
+                ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = true;
+                transform.Translate(new Vector3(0, -1.5f, 0));
+                onPlatform = true;
             }
         }
         if (Time.timeScale != 0)
@@ -112,7 +114,11 @@ public class PlayerController : MonoBehaviour
                     {
                         onPlatform = false;
                         transform.Translate(new Vector3(0, 1.5f, 0));
-                        ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
+                        if(ActivePlatforms[currentPlatform] != null)
+                            ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
+
+                      
+
                         ++currentPlatform;
                         SetPlayerTurn();
                         noPlatformFrameCount = 0;
@@ -129,6 +135,8 @@ public class PlayerController : MonoBehaviour
             {
                 onPlatform = false;
                 transform.Translate(new Vector3(0, 1.5f, 0));
+                Debug.Log(currentPlatform);
+                Debug.Log(ActivePlatforms.Count);
                 ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = false;
                 ++currentPlatform;
                 SetPlayerTurn();
@@ -138,6 +146,7 @@ public class PlayerController : MonoBehaviour
                 if (currentPlatform > 9)
                 {
                     ActivePlatforms[currentPlatform - 10].SetActive(false);
+                    ActivePlatforms[currentPlatform - 12] = null;
                 }
             }
         }
