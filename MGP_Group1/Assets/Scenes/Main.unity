@@ -669,14 +669,13 @@ MonoBehaviour:
   MovingPlatforms:
   - {fileID: 1118997816621226, guid: 8526478c0edbc42429090333186e696f, type: 2}
   - {fileID: 1200622571875606, guid: f89f446c201c47340b54aea06d3ed526, type: 2}
-  - {fileID: 1396989014586620, guid: fa5a8f7c55a18e94fbde05bd28c141b5, type: 2}
   - {fileID: 1605677740597398, guid: 4249a5d7b374b494d8ca89fc7aa743e7, type: 2}
   - {fileID: 1674495540211418, guid: 0bbf51d99a5396842b9f9616aa928fc7, type: 2}
   - {fileID: 1012668515660016, guid: 5afd1308c6fd29f439cf69d69c45b1f1, type: 2}
   - {fileID: 1816663253821616, guid: 9bc1ffb026b6a0d4aad0b453f087d490, type: 2}
-  - {fileID: 1780948266357270, guid: 07e473f04ff56e141a7ac4bff97bfb10, type: 2}
   YPosition: 0
   PooledAmount: 20
+  ActivePlatforms: []
 --- !u!212 &1739945028
 SpriteRenderer:
   m_ObjectHideFlags: 0
