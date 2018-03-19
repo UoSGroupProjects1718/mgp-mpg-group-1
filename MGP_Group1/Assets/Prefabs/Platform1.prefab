@@ -283,7 +283,7 @@ MonoBehaviour:
   PickUps:
   - {fileID: 1599423870555692}
   - {fileID: 1175820084009300}
-  - {fileID: 0}
+  - {fileID: 1923422726484236}
 --- !u!114 &114027579562140226
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     private List<GameObject> Platforms;
     public List<GameObject> ActivePlatforms;
 
+    public int ScorePenalty = 10;
+
     private void Start()
     {
         P1ScoreText.text = "Player 1 Score: " + P1Score;
@@ -80,14 +82,15 @@ public class PlayerController : MonoBehaviour
                 PlatformMovement.SpeedMultiplier = -0.05f;
                 noPlatformFrameCount = 0;
                 currentPlatform--;
+                SetPlayerTurn();
                 ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = true;
                 transform.Translate(new Vector3(0, -1.5f, 0));
                 onPlatform = true;
                 if (Player1Turn)
                 {
-                    if (P1Score > 10)
+                    if (P1Score > ScorePenalty)
                     {
-                        P1Score -= 10;
+                        P1Score -= ScorePenalty;
                     }
                     else
                     {
@@ -96,9 +99,9 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (!Player1Turn)
                 {
-                    if (P2Score > 10)
+                    if (P2Score > ScorePenalty)
                     {
-                        P2Score -= 10;
+                        P2Score -= ScorePenalty;
                     }
                     else
                     {

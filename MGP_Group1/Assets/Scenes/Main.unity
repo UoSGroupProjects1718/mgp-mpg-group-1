@@ -676,6 +676,7 @@ MonoBehaviour:
   YPosition: 0
   PooledAmount: 20
   ActivePlatforms: []
+  ScorePenalty: 10
 --- !u!212 &1739945028
 SpriteRenderer:
   m_ObjectHideFlags: 0

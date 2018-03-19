@@ -304,8 +304,8 @@ MonoBehaviour:
   HorizontalTravel: 4
   PickUps:
   - {fileID: 1798411193125114}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1331665534754448}
+  - {fileID: 1541637332362248}
 --- !u!114 &114986034012858956
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -18,14 +18,15 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y - Character.transform.position.y >= 5f)
-            Time.timeScale = 0;
-
         float cameraDistance = transform.position.y - Character.transform.position.y;
 
-        if (cameraDistance <= -5f)
+        if (cameraDistance <= -2.75f)
         {
             SpeedMult = 10f;
+        }
+        else if (cameraDistance >= 4.68f)
+        {
+            SpeedMult = 0f;
         }
         else
         {
