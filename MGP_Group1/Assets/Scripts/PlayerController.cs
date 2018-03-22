@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     public int PooledAmount = 20; // PooledAmount = number of full length, no powerup platforms to pool
     private List<GameObject> Platforms;
-    public List<GameObject> ActivePlatforms;
+    private List<GameObject> ActivePlatforms;
 
     public int ScorePenalty = 10;
 
