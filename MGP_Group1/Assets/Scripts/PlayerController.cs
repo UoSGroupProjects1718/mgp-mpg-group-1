@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    //private int PlayerNum = 0;
     private bool Player1Turn = false;
 
     private int P1Score = 0;
@@ -15,9 +14,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject[] MovingPlatforms;
 
-    public const int numberOfPlatforms = 100;
-
-    private int currentPlatform = 0;
+    public int currentPlatform = 0;
 
     public float YPosition = 0;
 
@@ -26,16 +23,21 @@ public class PlayerController : MonoBehaviour
 
     public int PooledAmount = 20; // PooledAmount = number of full length, no powerup platforms to pool
     private List<GameObject> Platforms;
-    public List<GameObject> ActivePlatforms;
+    private List<GameObject> ActivePlatforms;
 
     public int ScorePenalty = 10;
+
+    private float GameTimer = 60f;
+    private int[] Winner = new int[3];
+    private int RoundNumber = 0;
+    private bool RoundEnded = false;
+
+    public GameObject Camera;
 
     private void Start()
     {
         P1ScoreText.text = "Player 1 Score: " + P1Score;
         P2ScoreText.text = "Player 2 Score: " + P2Score;
-
-        //GameObject PlatformsParent = new GameObject("Ice Platforms");
 
         Platforms = new List<GameObject>();
         for (int i = 0; i < PooledAmount; i++) // PooledAmount of full length, no powerup platforms
@@ -67,6 +69,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        GameTimer -= Time.deltaTime;
+        if (GameTimer <= 0 && !RoundEnded)
+        {
+            RoundEnded = true;
+            RoundEnd();
+        }
         if (!onPlatform)
         {
             noPlatformFrameCount++;
@@ -146,6 +154,9 @@ public class PlayerController : MonoBehaviour
                 if (currentPlatform > 9)
                 {
                     ActivePlatforms[currentPlatform - 10].SetActive(false);
+                }
+                if (currentPlatform > 11)
+                {
                     ActivePlatforms[currentPlatform - 12] = null;
                 }
             }
@@ -210,8 +221,6 @@ public class PlayerController : MonoBehaviour
 
     private void SetPlayerTurn()
     {
-        //PlayerNum = (currentPlatform + 1) % 2;
-        //PlayerNum++;
         Player1Turn = !Player1Turn;
     }
 
@@ -226,5 +235,72 @@ public class PlayerController : MonoBehaviour
             ActivePlatforms.Add(Platforms[i]);
         }
         else EnablePlatform();
+    }
+
+    private void RoundEnd()
+    {
+        Time.timeScale = 0;
+        if (P1Score > P2Score)
+        {
+            Winner[RoundNumber] = 1;
+        }
+        else if (P2Score > P1Score)
+        {
+            Winner[RoundNumber] = -1;
+        }
+        else
+        {
+            Winner[RoundNumber] = 0;
+        }
+        if (RoundNumber == 2)
+        {
+            int total = 0;
+            for (int i = 0; i < Winner.Length; i++)
+            {
+                total += Winner[i];
+            }
+            if (total > 0) // Positive = P1 won more than P2
+            {
+                Debug.Log("Player 1 Wins");
+            }
+            else if (total < 0) // Negative = P2 won more than P1
+            {
+                Debug.Log("Player 2 Wins");
+            }
+            else // 0 = equal win/loss
+            {
+                Debug.Log("Draw");
+            }
+            //Enable play again/main menu buttons
+        }
+        else
+        {
+            RoundNumber++;
+            gameObject.transform.SetPositionAndRotation(new Vector3(0, -1.5f), new Quaternion(0, 0, 0, 0));
+            Camera.transform.SetPositionAndRotation(new Vector3(0, 0, -10), new Quaternion(0, 0, 0, 0));
+            YPosition = 0;
+            currentPlatform = 0;
+            P1Score = 0;
+            P2Score = 0;
+            P1ScoreText.text = "Player 1 Score: " + P1Score;
+            P2ScoreText.text = "Player 2 Score: " + P2Score;
+            onPlatform = true;
+            noPlatformFrameCount = 0;
+            for (int i = 0; i < Platforms.Count; i++)
+            {
+                Platforms[i].SetActive(false);
+            }
+            while (ActivePlatforms.Count > 0)
+            {
+                ActivePlatforms.RemoveAt(0);
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                EnablePlatform();
+            }
+            GameTimer = 60f;
+            RoundEnded = false;
+            Time.timeScale = 1;
+        }
     }
 }
