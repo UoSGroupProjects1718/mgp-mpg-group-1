@@ -28,9 +28,15 @@ public class PlayerController : MonoBehaviour
     public int ScorePenalty = 10;
 
     private float GameTimer = 60f;
+    public Text GameTimerText;
     private int[] Winner = new int[3]; // 3 element array to store winner of 3 rounds
     private int RoundNumber = 0;
     private bool RoundEnded = false;
+
+    public GameObject GameOverText;
+    public GameObject GameOverIcon;
+    public GameObject GameOverButton;
+    public Sprite[] GameOverIcons = new Sprite[3];
 
     public GameObject Camera;
 
@@ -70,6 +76,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         GameTimer -= Time.deltaTime;
+        GameTimerText.text = GameTimer.ToString("0");
         if (GameTimer <= 0 && !RoundEnded)
         {
             RoundEnded = true;
@@ -211,7 +218,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "PowerUp1")
         {
-            //Collect all points on platform
             for (int i = 0; i < other.gameObject.GetComponentInParent<PlatformMovement>().PickUps.Length; i++)
             {
                 if (other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.tag == "Point0")
@@ -283,7 +289,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (P2Score > P1Score)
         {
-            Winner[RoundNumber] = -1;
+            Winner[RoundNumber] = 2;
         }
         else
         {
@@ -291,24 +297,35 @@ public class PlayerController : MonoBehaviour
         }
         if (RoundNumber == 2)
         {
-            int total = 0;
-            for (int i = 0; i < Winner.Length; i++)
+            int P1Win = 0;
+            int P2Win = 0;
+            for (int i = 0; i < 3; i++)
             {
-                total += Winner[i];
+                if (Winner[i] == 1)
+                    P1Win++;
+                else if (Winner[i] == 2)
+                    P2Win++;
             }
-            if (total > 0) // Positive = P1 won more than P2
+            if (P1Win > P2Win)
             {
                 Debug.Log("Player 1 Wins");
+                GameOverIcon.GetComponent<Image>().sprite = GameOverIcons[1];
             }
-            else if (total < 0) // Negative = P2 won more than P1
+            else if (P1Win < P2Win)
             {
                 Debug.Log("Player 2 Wins");
+                GameOverIcon.GetComponent<Image>().sprite = GameOverIcons[2];
             }
-            else // 0 = equal win/loss
+            else
             {
                 Debug.Log("Draw");
+                GameOverIcon.GetComponent<Image>().sprite = GameOverIcons[0];
             }
             //Enable play again/main menu buttons
+            GameOverText.GetComponent<Text>().text = P1Win + " - " + P2Win;
+            GameOverText.SetActive(true);
+            GameOverIcon.SetActive(true);
+            GameOverButton.SetActive(true);
         }
         else
         {
@@ -321,6 +338,7 @@ public class PlayerController : MonoBehaviour
             P2Score = 0;
             P1ScoreText.text = "Player 1 Score: " + P1Score;
             P2ScoreText.text = "Player 2 Score: " + P2Score;
+            Player1Turn = true;
             onPlatform = true;
             noPlatformFrameCount = 0;
             PlatformMovement.SpeedMultiplier = 1;
@@ -340,5 +358,37 @@ public class PlayerController : MonoBehaviour
             RoundEnded = false;
             Time.timeScale = 1;
         }
+    }
+
+    public void BtnPlayAgain()
+    {
+        RoundNumber = 0;
+        GameOverButton.SetActive(false);
+        GameOverIcon.SetActive(false);
+        GameOverText.SetActive(false);
+        gameObject.transform.SetPositionAndRotation(new Vector3(0, -1.5f), new Quaternion(0, 0, 0, 0));
+        Camera.transform.SetPositionAndRotation(new Vector3(0, 0, -10), new Quaternion(0, 0, 0, 0));
+        YPosition = 0;
+        currentPlatform = 0;
+        P1Score = 0;
+        P2Score = 0;
+        P1ScoreText.text = "Player 1 Score: " + P1Score;
+        P2ScoreText.text = "Player 2 Score: " + P2Score;
+        Player1Turn = true;
+        onPlatform = true;
+        noPlatformFrameCount = 0;
+        PlatformMovement.SpeedMultiplier = 1;
+        while (ActivePlatforms.Count > 0)
+        {
+            Platforms[0].SetActive(false);
+            ActivePlatforms.RemoveAt(0);
+        }
+        for (int i = 0; i < 10; i++)
+        {
+            EnablePlatform();
+        }
+        GameTimer = 60f;
+        RoundEnded = false;
+        Time.timeScale = 1;
     }
 }
