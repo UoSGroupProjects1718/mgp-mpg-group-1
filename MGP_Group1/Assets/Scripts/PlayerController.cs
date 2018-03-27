@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private bool Player1Turn = false;
+    private bool Player1Turn = false; // True if P1 just pressed, false if P2 just pressed
 
     private int P1Score = 0;
     public Text P1ScoreText;
@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
                 {
-                    if (Input.GetTouch(Input.touchCount - 1).position.x < Screen.width/2 == Player1Turn)
+                    if (Input.GetTouch(Input.touchCount - 1).position.x > Screen.width/2 == Player1Turn)
                     {
                         onPlatform = false;
                         transform.Translate(new Vector3(0, 1.5f, 0));
@@ -338,7 +338,7 @@ public class PlayerController : MonoBehaviour
             P2Score = 0;
             P1ScoreText.text = "Player 1 Score: " + P1Score;
             P2ScoreText.text = "Player 2 Score: " + P2Score;
-            Player1Turn = true;
+            Player1Turn = false;
             onPlatform = true;
             noPlatformFrameCount = 0;
             PlatformMovement.SpeedMultiplier = 1;
@@ -374,7 +374,7 @@ public class PlayerController : MonoBehaviour
         P2Score = 0;
         P1ScoreText.text = "Player 1 Score: " + P1Score;
         P2ScoreText.text = "Player 2 Score: " + P2Score;
-        Player1Turn = true;
+        Player1Turn = false;
         onPlatform = true;
         noPlatformFrameCount = 0;
         PlatformMovement.SpeedMultiplier = 1;
