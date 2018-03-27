@@ -9,6 +9,7 @@ TagManager:
   - Point1
   - Point2
   - PowerUp0
+  - PowerUp1
   layers:
   - Default
   - TransparentFX

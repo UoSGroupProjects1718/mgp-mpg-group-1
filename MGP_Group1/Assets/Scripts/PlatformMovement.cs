@@ -14,10 +14,10 @@ public class PlatformMovement : MonoBehaviour
     public static float SpeedMultiplier
     {
         get { return SpeedMult; }
-        set { SpeedMult += value; }
+        set { SpeedMult = value; }
     }
     private float PowerUpMult = 1f;
-    public float PowerUpTimer 
+    public float SpeedIncrease 
     {
         get { return PowerUpMult; }
         set { PowerUpMult *= value; }

@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public int ScorePenalty = 10;
 
     private float GameTimer = 60f;
-    private int[] Winner = new int[3];
+    private int[] Winner = new int[3]; // 3 element array to store winner of 3 rounds
     private int RoundNumber = 0;
     private bool RoundEnded = false;
 
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
                 ActivePlatforms[ActivePlatforms.Count - 1].SetActive(false);
                 ActivePlatforms.RemoveAt(ActivePlatforms.Count - 1);
                 YPosition -= 1.5f;
-                PlatformMovement.SpeedMultiplier = -0.05f;
+                PlatformMovement.SpeedMultiplier += -0.05f;
                 noPlatformFrameCount = 0;
                 currentPlatform--;
                 SetPlayerTurn();
@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
                         ++currentPlatform;
                         SetPlayerTurn();
                         noPlatformFrameCount = 0;
-                        PlatformMovement.SpeedMultiplier = 0.05f; //Increases all platforms' speed by this amount
+                        PlatformMovement.SpeedMultiplier += 0.05f; //Increases all platforms' speed by this amount
                         EnablePlatform();
                         if (currentPlatform > 9)
                         {
@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
                 ++currentPlatform;
                 SetPlayerTurn();
                 noPlatformFrameCount = 0;
-                PlatformMovement.SpeedMultiplier = 0.05f; //Increases all platforms' speed by this amount
+                PlatformMovement.SpeedMultiplier += 0.05f; //Increases all platforms' speed by this amount
                 EnablePlatform();
                 if (currentPlatform > 9)
                 {
@@ -171,12 +171,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "Point0") 
         {
-            //if (PlayerNum == 1)
             if (Player1Turn)
             {
                 P1Score += 5;
             }
-            //else if (PlayerNum == 2) 
             else if (!Player1Turn)
             {
                 P2Score += 5;
@@ -184,12 +182,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "Point1") 
         {
-            //if (PlayerNum == 1)
             if (Player1Turn)
             {
                 P1Score += 3;
             }
-            //else if (PlayerNum == 2) 
             else if (!Player1Turn)
             {
                 P2Score += 3;
@@ -197,12 +193,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "Point2") 
         {
-            //if (PlayerNum == 1)
             if (Player1Turn)
             {
                 P1Score += 1;
             }
-            //else if (PlayerNum == 2) 
             else if (!Player1Turn)
             {
                 P2Score += 1;
@@ -212,7 +206,50 @@ public class PlayerController : MonoBehaviour
         {
             for(int i = 0; i < 3; i++) 
             {
-                ActivePlatforms[currentPlatform + i].GetComponent<PlatformMovement>().PowerUpTimer = 2f;
+                ActivePlatforms[currentPlatform + i].GetComponent<PlatformMovement>().SpeedIncrease = 2f;
+            }
+        }
+        else if (other.gameObject.tag == "PowerUp1")
+        {
+            //Collect all points on platform
+            for (int i = 0; i < other.gameObject.GetComponentInParent<PlatformMovement>().PickUps.Length; i++)
+            {
+                if (other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.tag == "Point0")
+                {
+                    if (Player1Turn)
+                    {
+                        P1Score += 5;
+                    }
+                    else if (!Player1Turn)
+                    {
+                        P2Score += 5;
+                    }
+                    other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.SetActive(false);
+                }
+                if (other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.tag == "Point1")
+                {
+                    if (Player1Turn)
+                    {
+                        P1Score += 3;
+                    }
+                    else if (!Player1Turn)
+                    {
+                        P2Score += 3;
+                    }
+                    other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.SetActive(false);
+                }
+                if (other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.tag == "Point2")
+                {
+                    if (Player1Turn)
+                    {
+                        P1Score += 1;
+                    }
+                    else if (!Player1Turn)
+                    {
+                        P2Score += 1;
+                    }
+                    other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.SetActive(false);
+                }
             }
         }
         P1ScoreText.text = "Player 1 Score: " + P1Score;
@@ -286,6 +323,7 @@ public class PlayerController : MonoBehaviour
             P2ScoreText.text = "Player 2 Score: " + P2Score;
             onPlatform = true;
             noPlatformFrameCount = 0;
+            PlatformMovement.SpeedMultiplier = 1;
             for (int i = 0; i < Platforms.Count; i++)
             {
                 Platforms[i].SetActive(false);
