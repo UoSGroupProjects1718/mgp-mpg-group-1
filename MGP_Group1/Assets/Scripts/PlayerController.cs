@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject Camera;
 
+    public GameObject[] Obstacles;
+
     private void Start()
     {
         P1ScoreText.text = "Player 1 Score: " + P1Score;
@@ -48,19 +50,19 @@ public class PlayerController : MonoBehaviour
         Platforms = new List<GameObject>();
         for (int i = 0; i < PooledAmount; i++) // PooledAmount of full length, no powerup platforms
         {
-            GameObject obj = (GameObject)Instantiate(MovingPlatforms[0]);
+            GameObject obj = Instantiate(MovingPlatforms[0]);
             obj.SetActive(false);
             Platforms.Add(obj);
         }
         for (int i = 0; i < PooledAmount/2; i++) // Half as many half length, no powerup platforms
         {
-            GameObject obj = (GameObject)Instantiate(MovingPlatforms[1]);
+            GameObject obj = Instantiate(MovingPlatforms[1]);
             obj.SetActive(false);
             Platforms.Add(obj);
         }
         for (int i = 2; i < MovingPlatforms.Length; i++) // 1 of every powerup platform
         {
-            GameObject obj = (GameObject)Instantiate(MovingPlatforms[i]);
+            GameObject obj = Instantiate(MovingPlatforms[i]);
             obj.SetActive(false);
             Platforms.Add(obj);
         }
@@ -257,6 +259,32 @@ public class PlayerController : MonoBehaviour
                     other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.SetActive(false);
                 }
             }
+        }
+        else if (other.gameObject.tag == "PowerUp2")
+        {
+            ActivePlatforms[currentPlatform].SetActive(false);
+            Transform position = ActivePlatforms[currentPlatform + 1].transform;
+            //ActivePlatforms[currentPlatform] = Obstacles[Random.Range(0, Obstacles.Length)];
+            ActivePlatforms[currentPlatform] = Instantiate(Obstacles[Random.Range(0, Obstacles.Length)], position);
+            //ActivePlatforms[currentPlatform].transform.position = position;
+            ActivePlatforms[currentPlatform].SetActive(true);
+        }
+        else if (other.gameObject.tag == "Obstacle")
+        {
+            if (currentPlatform > 9)
+            {
+                ActivePlatforms[currentPlatform - 10].SetActive(true);
+            }
+            ActivePlatforms[ActivePlatforms.Count - 1].SetActive(false);
+            ActivePlatforms.RemoveAt(ActivePlatforms.Count - 1);
+            YPosition -= 1.5f;
+            PlatformMovement.SpeedMultiplier += -0.05f;
+            noPlatformFrameCount = 0;
+            currentPlatform--;
+            SetPlayerTurn();
+            ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = true;
+            transform.Translate(new Vector3(0, -1.5f, 0));
+            onPlatform = true;
         }
         P1ScoreText.text = "Player 1 Score: " + P1Score;
         P2ScoreText.text = "Player 2 Score: " + P2Score;
