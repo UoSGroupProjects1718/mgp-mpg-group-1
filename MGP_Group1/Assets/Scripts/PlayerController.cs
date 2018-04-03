@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private bool Player1Turn = false;
+    private bool Player1Turn = false; // True if P1 just pressed, false if P2 just pressed
 
     private int P1Score = 0;
     public Text P1ScoreText;
@@ -28,11 +28,19 @@ public class PlayerController : MonoBehaviour
     public int ScorePenalty = 10;
 
     private float GameTimer = 60f;
-    private int[] Winner = new int[3];
+    public Text GameTimerText;
+    private int[] Winner = new int[3]; // 3 element array to store winner of 3 rounds
     private int RoundNumber = 0;
     private bool RoundEnded = false;
 
+    public GameObject GameOverText;
+    public GameObject GameOverIcon;
+    public GameObject GameOverButton;
+    public Sprite[] GameOverIcons = new Sprite[3];
+
     public GameObject Camera;
+
+    public GameObject[] Obstacles;
 
     private void Start()
     {
@@ -42,19 +50,19 @@ public class PlayerController : MonoBehaviour
         Platforms = new List<GameObject>();
         for (int i = 0; i < PooledAmount; i++) // PooledAmount of full length, no powerup platforms
         {
-            GameObject obj = (GameObject)Instantiate(MovingPlatforms[0]);
+            GameObject obj = Instantiate(MovingPlatforms[0]);
             obj.SetActive(false);
             Platforms.Add(obj);
         }
         for (int i = 0; i < PooledAmount/2; i++) // Half as many half length, no powerup platforms
         {
-            GameObject obj = (GameObject)Instantiate(MovingPlatforms[1]);
+            GameObject obj = Instantiate(MovingPlatforms[1]);
             obj.SetActive(false);
             Platforms.Add(obj);
         }
         for (int i = 2; i < MovingPlatforms.Length; i++) // 1 of every powerup platform
         {
-            GameObject obj = (GameObject)Instantiate(MovingPlatforms[i]);
+            GameObject obj = Instantiate(MovingPlatforms[i]);
             obj.SetActive(false);
             Platforms.Add(obj);
         }
@@ -70,6 +78,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         GameTimer -= Time.deltaTime;
+        GameTimerText.text = GameTimer.ToString("0");
         if (GameTimer <= 0 && !RoundEnded)
         {
             RoundEnded = true;
@@ -87,7 +96,7 @@ public class PlayerController : MonoBehaviour
                 ActivePlatforms[ActivePlatforms.Count - 1].SetActive(false);
                 ActivePlatforms.RemoveAt(ActivePlatforms.Count - 1);
                 YPosition -= 1.5f;
-                PlatformMovement.SpeedMultiplier = -0.05f;
+                PlatformMovement.SpeedMultiplier += -0.05f;
                 noPlatformFrameCount = 0;
                 currentPlatform--;
                 SetPlayerTurn();
@@ -124,7 +133,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
                 {
-                    if (Input.GetTouch(Input.touchCount - 1).position.x < Screen.width/2 == Player1Turn)
+                    if (Input.GetTouch(Input.touchCount - 1).position.x > Screen.width/2 == Player1Turn)
                     {
                         onPlatform = false;
                         transform.Translate(new Vector3(0, 1.5f, 0));
@@ -132,7 +141,7 @@ public class PlayerController : MonoBehaviour
                         ++currentPlatform;
                         SetPlayerTurn();
                         noPlatformFrameCount = 0;
-                        PlatformMovement.SpeedMultiplier = 0.05f; //Increases all platforms' speed by this amount
+                        PlatformMovement.SpeedMultiplier += 0.05f; //Increases all platforms' speed by this amount
                         EnablePlatform();
                         if (currentPlatform > 9)
                         {
@@ -149,7 +158,7 @@ public class PlayerController : MonoBehaviour
                 ++currentPlatform;
                 SetPlayerTurn();
                 noPlatformFrameCount = 0;
-                PlatformMovement.SpeedMultiplier = 0.05f; //Increases all platforms' speed by this amount
+                PlatformMovement.SpeedMultiplier += 0.05f; //Increases all platforms' speed by this amount
                 EnablePlatform();
                 if (currentPlatform > 9)
                 {
@@ -171,12 +180,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "Point0") 
         {
-            //if (PlayerNum == 1)
             if (Player1Turn)
             {
                 P1Score += 5;
             }
-            //else if (PlayerNum == 2) 
             else if (!Player1Turn)
             {
                 P2Score += 5;
@@ -184,12 +191,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "Point1") 
         {
-            //if (PlayerNum == 1)
             if (Player1Turn)
             {
                 P1Score += 3;
             }
-            //else if (PlayerNum == 2) 
             else if (!Player1Turn)
             {
                 P2Score += 3;
@@ -197,12 +202,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "Point2") 
         {
-            //if (PlayerNum == 1)
             if (Player1Turn)
             {
                 P1Score += 1;
             }
-            //else if (PlayerNum == 2) 
             else if (!Player1Turn)
             {
                 P2Score += 1;
@@ -212,8 +215,76 @@ public class PlayerController : MonoBehaviour
         {
             for(int i = 0; i < 3; i++) 
             {
-                ActivePlatforms[currentPlatform + i].GetComponent<PlatformMovement>().PowerUpTimer = 2f;
+                ActivePlatforms[currentPlatform + i].GetComponent<PlatformMovement>().SpeedIncrease = 2f;
             }
+        }
+        else if (other.gameObject.tag == "PowerUp1")
+        {
+            for (int i = 0; i < other.gameObject.GetComponentInParent<PlatformMovement>().PickUps.Length; i++)
+            {
+                if (other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.tag == "Point0")
+                {
+                    if (Player1Turn)
+                    {
+                        P1Score += 5;
+                    }
+                    else if (!Player1Turn)
+                    {
+                        P2Score += 5;
+                    }
+                    other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.SetActive(false);
+                }
+                if (other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.tag == "Point1")
+                {
+                    if (Player1Turn)
+                    {
+                        P1Score += 3;
+                    }
+                    else if (!Player1Turn)
+                    {
+                        P2Score += 3;
+                    }
+                    other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.SetActive(false);
+                }
+                if (other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.tag == "Point2")
+                {
+                    if (Player1Turn)
+                    {
+                        P1Score += 1;
+                    }
+                    else if (!Player1Turn)
+                    {
+                        P2Score += 1;
+                    }
+                    other.gameObject.GetComponentInParent<PlatformMovement>().PickUps[i].gameObject.SetActive(false);
+                }
+            }
+        }
+        else if (other.gameObject.tag == "PowerUp2")
+        {
+            ActivePlatforms[currentPlatform].SetActive(false);
+            Transform position = ActivePlatforms[currentPlatform + 1].transform;
+            //ActivePlatforms[currentPlatform] = Obstacles[Random.Range(0, Obstacles.Length)];
+            ActivePlatforms[currentPlatform] = Instantiate(Obstacles[Random.Range(0, Obstacles.Length)], position);
+            //ActivePlatforms[currentPlatform].transform.position = position;
+            ActivePlatforms[currentPlatform].SetActive(true);
+        }
+        else if (other.gameObject.tag == "Obstacle")
+        {
+            if (currentPlatform > 9)
+            {
+                ActivePlatforms[currentPlatform - 10].SetActive(true);
+            }
+            ActivePlatforms[ActivePlatforms.Count - 1].SetActive(false);
+            ActivePlatforms.RemoveAt(ActivePlatforms.Count - 1);
+            YPosition -= 1.5f;
+            PlatformMovement.SpeedMultiplier += -0.05f;
+            noPlatformFrameCount = 0;
+            currentPlatform--;
+            SetPlayerTurn();
+            ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = true;
+            transform.Translate(new Vector3(0, -1.5f, 0));
+            onPlatform = true;
         }
         P1ScoreText.text = "Player 1 Score: " + P1Score;
         P2ScoreText.text = "Player 2 Score: " + P2Score;
@@ -246,7 +317,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (P2Score > P1Score)
         {
-            Winner[RoundNumber] = -1;
+            Winner[RoundNumber] = 2;
         }
         else
         {
@@ -254,24 +325,35 @@ public class PlayerController : MonoBehaviour
         }
         if (RoundNumber == 2)
         {
-            int total = 0;
-            for (int i = 0; i < Winner.Length; i++)
+            int P1Win = 0;
+            int P2Win = 0;
+            for (int i = 0; i < 3; i++)
             {
-                total += Winner[i];
+                if (Winner[i] == 1)
+                    P1Win++;
+                else if (Winner[i] == 2)
+                    P2Win++;
             }
-            if (total > 0) // Positive = P1 won more than P2
+            if (P1Win > P2Win)
             {
                 Debug.Log("Player 1 Wins");
+                GameOverIcon.GetComponent<Image>().sprite = GameOverIcons[1];
             }
-            else if (total < 0) // Negative = P2 won more than P1
+            else if (P1Win < P2Win)
             {
                 Debug.Log("Player 2 Wins");
+                GameOverIcon.GetComponent<Image>().sprite = GameOverIcons[2];
             }
-            else // 0 = equal win/loss
+            else
             {
                 Debug.Log("Draw");
+                GameOverIcon.GetComponent<Image>().sprite = GameOverIcons[0];
             }
             //Enable play again/main menu buttons
+            GameOverText.GetComponent<Text>().text = P1Win + " - " + P2Win;
+            GameOverText.SetActive(true);
+            GameOverIcon.SetActive(true);
+            GameOverButton.SetActive(true);
         }
         else
         {
@@ -284,8 +366,10 @@ public class PlayerController : MonoBehaviour
             P2Score = 0;
             P1ScoreText.text = "Player 1 Score: " + P1Score;
             P2ScoreText.text = "Player 2 Score: " + P2Score;
+            Player1Turn = false;
             onPlatform = true;
             noPlatformFrameCount = 0;
+            PlatformMovement.SpeedMultiplier = 1;
             for (int i = 0; i < Platforms.Count; i++)
             {
                 Platforms[i].SetActive(false);
@@ -302,5 +386,37 @@ public class PlayerController : MonoBehaviour
             RoundEnded = false;
             Time.timeScale = 1;
         }
+    }
+
+    public void BtnPlayAgain()
+    {
+        RoundNumber = 0;
+        GameOverButton.SetActive(false);
+        GameOverIcon.SetActive(false);
+        GameOverText.SetActive(false);
+        gameObject.transform.SetPositionAndRotation(new Vector3(0, -1.5f), new Quaternion(0, 0, 0, 0));
+        Camera.transform.SetPositionAndRotation(new Vector3(0, 0, -10), new Quaternion(0, 0, 0, 0));
+        YPosition = 0;
+        currentPlatform = 0;
+        P1Score = 0;
+        P2Score = 0;
+        P1ScoreText.text = "Player 1 Score: " + P1Score;
+        P2ScoreText.text = "Player 2 Score: " + P2Score;
+        Player1Turn = false;
+        onPlatform = true;
+        noPlatformFrameCount = 0;
+        PlatformMovement.SpeedMultiplier = 1;
+        while (ActivePlatforms.Count > 0)
+        {
+            Platforms[0].SetActive(false);
+            ActivePlatforms.RemoveAt(0);
+        }
+        for (int i = 0; i < 10; i++)
+        {
+            EnablePlatform();
+        }
+        GameTimer = 60f;
+        RoundEnded = false;
+        Time.timeScale = 1;
     }
 }
