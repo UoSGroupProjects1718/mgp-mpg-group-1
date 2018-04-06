@@ -38,6 +38,9 @@ public class PlayerController : MonoBehaviour
     public GameObject GameOverButton;
     public Sprite[] GameOverIcons = new Sprite[3];
 
+    public GameObject MainMenuIcon;
+    public GameObject MainMenuButton;
+
     public GameObject Camera;
 
     public GameObject[] Obstacles;
@@ -73,6 +76,10 @@ public class PlayerController : MonoBehaviour
         {
             EnablePlatform();
         }
+
+        MainMenuIcon.SetActive(true);
+        MainMenuButton.SetActive(true);
+        Time.timeScale = 0;
     }
 
     private void Update()
@@ -97,6 +104,7 @@ public class PlayerController : MonoBehaviour
                 ActivePlatforms.RemoveAt(ActivePlatforms.Count - 1);
                 YPosition -= 1.5f;
                 PlatformMovement.SpeedMultiplier += -0.05f;
+                ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().MissMult = 0.05f;
                 noPlatformFrameCount = 0;
                 currentPlatform--;
                 SetPlayerTurn();
@@ -263,10 +271,9 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.tag == "PowerUp2")
         {
             ActivePlatforms[currentPlatform].SetActive(false);
-            Transform position = ActivePlatforms[currentPlatform + 1].transform;
-            //ActivePlatforms[currentPlatform] = Obstacles[Random.Range(0, Obstacles.Length)];
-            ActivePlatforms[currentPlatform] = Instantiate(Obstacles[Random.Range(0, Obstacles.Length)], position);
-            //ActivePlatforms[currentPlatform].transform.position = position;
+            Vector3 position = ActivePlatforms[currentPlatform].transform.position;
+            Quaternion rotation = ActivePlatforms[currentPlatform].transform.rotation;
+            ActivePlatforms[currentPlatform] = Instantiate(Obstacles[Random.Range(0, Obstacles.Length)], position, rotation);
             ActivePlatforms[currentPlatform].SetActive(true);
         }
         else if (other.gameObject.tag == "Obstacle")
@@ -417,6 +424,13 @@ public class PlayerController : MonoBehaviour
         }
         GameTimer = 60f;
         RoundEnded = false;
+        Time.timeScale = 1;
+    }
+
+    public void BtnPlay()
+    {
+        MainMenuIcon.SetActive(false);
+        MainMenuButton.SetActive(false);
         Time.timeScale = 1;
     }
 }
