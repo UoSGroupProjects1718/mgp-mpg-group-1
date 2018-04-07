@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
                 ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = true;
                 transform.Translate(new Vector3(0, -1.5f, 0));
                 onPlatform = true;
-                if (Player1Turn)
+                if (!Player1Turn)
                 {
                     if (P1Score > ScorePenalty)
                     {
@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
                         P1Score = 0;
                     }
                 }
-                else if (!Player1Turn)
+                else if (Player1Turn)
                 {
                     if (P2Score > ScorePenalty)
                     {
