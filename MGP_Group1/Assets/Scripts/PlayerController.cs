@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour
                 ActivePlatforms.RemoveAt(ActivePlatforms.Count - 1);
                 YPosition -= 1.5f;
                 PlatformMovement.SpeedMultiplier += -0.05f;
+                //PlatformMovement.ChangeEra = !PlatformMovement.ChangeEra;
                 ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().MissMult = 0.05f;
                 noPlatformFrameCount = 0;
                 currentPlatform--;
@@ -150,6 +151,7 @@ public class PlayerController : MonoBehaviour
                         SetPlayerTurn();
                         noPlatformFrameCount = 0;
                         PlatformMovement.SpeedMultiplier += 0.05f; //Increases all platforms' speed by this amount
+                        //PlatformMovement.ChangeEra = !PlatformMovement.ChangeEra; //Swaps the era
                         EnablePlatform();
                         if (currentPlatform > 9)
                         {
@@ -167,6 +169,7 @@ public class PlayerController : MonoBehaviour
                 SetPlayerTurn();
                 noPlatformFrameCount = 0;
                 PlatformMovement.SpeedMultiplier += 0.05f; //Increases all platforms' speed by this amount
+                //PlatformMovement.ChangeEra = !PlatformMovement.ChangeEra; //Swaps the era
                 EnablePlatform();
                 if (currentPlatform > 9)
                 {
@@ -185,6 +188,11 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Platform")
         {
             onPlatform = true;
+            if (!other.gameObject.GetComponentInParent<PlatformMovement>().hasEntered)
+            {
+                PlatformMovement.ChangeEra = !PlatformMovement.ChangeEra; //Swaps the era
+            }
+            other.gameObject.GetComponentInParent<PlatformMovement>().hasEntered = true;
         }
         else if (other.gameObject.tag == "Point0") 
         {
@@ -343,17 +351,14 @@ public class PlayerController : MonoBehaviour
             }
             if (P1Win > P2Win)
             {
-                Debug.Log("Player 1 Wins");
                 GameOverIcon.GetComponent<Image>().sprite = GameOverIcons[1];
             }
             else if (P1Win < P2Win)
             {
-                Debug.Log("Player 2 Wins");
                 GameOverIcon.GetComponent<Image>().sprite = GameOverIcons[2];
             }
             else
             {
-                Debug.Log("Draw");
                 GameOverIcon.GetComponent<Image>().sprite = GameOverIcons[0];
             }
             //Enable play again/main menu buttons

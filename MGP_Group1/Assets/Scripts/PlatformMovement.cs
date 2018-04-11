@@ -31,6 +31,22 @@ public class PlatformMovement : MonoBehaviour
 
     public GameObject[] PickUps;
 
+    public GameObject Platform;
+    public Sprite OldEra;
+    public Sprite NewEra;
+    private static bool Era = true; //True == OldEra, False == NewEra
+    public static bool ChangeEra
+    {
+        get { return Era; }
+        set { Era = value; }
+    }
+    public bool Entered = false;
+    public bool hasEntered
+    {
+        get { return Entered; }
+        set { Entered = value; }
+    }
+
     private void OnEnable()
     {
         IsMoving = true;
@@ -41,6 +57,7 @@ public class PlatformMovement : MonoBehaviour
         }
         PowerUpMult = 1f;
         MissedPlatformMult = 1f;
+        Entered = false;
     }
 
     private void Update()
@@ -57,5 +74,13 @@ public class PlatformMovement : MonoBehaviour
         }
         if (IsMoving)
             transform.Translate((movingRight ? new Vector3(1, 0) : new Vector3(-1, 0)) * movementSpeed * Time.deltaTime * SpeedMult * PowerUpMult * MissedPlatformMult);
+        if (Era)
+        {
+            Platform.GetComponent<SpriteRenderer>().sprite = OldEra;
+        }
+        else
+        {
+            Platform.GetComponent<SpriteRenderer>().sprite = NewEra;
+        }
     }
 }

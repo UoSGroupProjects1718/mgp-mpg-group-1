@@ -455,6 +455,10 @@ MonoBehaviour:
   - {fileID: 1057438900207264}
   - {fileID: 1276957676549026}
   - {fileID: 1906122862025716}
+  Platform: {fileID: 1231779962753750}
+  OldEra: {fileID: 21300000, guid: 67cf0d7366d02914eb3f16baab5605b3, type: 3}
+  NewEra: {fileID: 21300000, guid: 77382401df2c3854ca6bca8b313475c5, type: 3}
+  Entered: 0
 --- !u!212 &212128983860861420
 SpriteRenderer:
   m_ObjectHideFlags: 1
