@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 4125226947908900}
   - component: {fileID: 212109791493430140}
   - component: {fileID: 61119629271993810}
+  - component: {fileID: 114656830910224456}
   m_Layer: 0
   m_Name: PlatformFull
   m_TagString: Platform
@@ -403,6 +404,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36465b9d0be4f0d49b6d6cc8ec78040c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114656830910224456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1587616699683758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762315589cd531447b0a6f3b814e2345, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OldEra: {fileID: 21300000, guid: 67cf0d7366d02914eb3f16baab5605b3, type: 3}
+  NewEra: {fileID: 21300000, guid: 77382401df2c3854ca6bca8b313475c5, type: 3}
 --- !u!114 &114841681962137454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -444,10 +458,6 @@ MonoBehaviour:
   - {fileID: 1045158449548350}
   - {fileID: 1674934090837532}
   - {fileID: 1768541847766734}
-  Platform: {fileID: 1587616699683758}
-  OldEra: {fileID: 21300000, guid: 67cf0d7366d02914eb3f16baab5605b3, type: 3}
-  NewEra: {fileID: 21300000, guid: 77382401df2c3854ca6bca8b313475c5, type: 3}
-  Entered: 0
 --- !u!114 &114960659770914830
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -188,11 +188,11 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Platform")
         {
             onPlatform = true;
-            if (!other.gameObject.GetComponentInParent<PlatformMovement>().hasEntered)
+            if (!other.gameObject.GetComponentInParent<EraChange>().hasChanged)
             {
-                PlatformMovement.ChangeEra = !PlatformMovement.ChangeEra; //Swaps the era
+                EraChange.ChangeEra = !EraChange.ChangeEra; //Swaps the era
             }
-            other.gameObject.GetComponentInParent<PlatformMovement>().hasEntered = true;
+            other.gameObject.GetComponentInParent<EraChange>().hasChanged = true;
         }
         else if (other.gameObject.tag == "Point0") 
         {
