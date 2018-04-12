@@ -38,6 +38,9 @@ public class PlayerController : MonoBehaviour
     public GameObject GameOverButton;
     public Sprite[] GameOverIcons = new Sprite[3];
 
+    public GameObject MainMenuIcon;
+    public GameObject MainMenuButton;
+
     public GameObject Camera;
 
     public GameObject[] Obstacles;
@@ -73,6 +76,10 @@ public class PlayerController : MonoBehaviour
         {
             EnablePlatform();
         }
+
+        MainMenuIcon.SetActive(true);
+        MainMenuButton.SetActive(true);
+        Time.timeScale = 0;
     }
 
     private void Update()
@@ -97,13 +104,15 @@ public class PlayerController : MonoBehaviour
                 ActivePlatforms.RemoveAt(ActivePlatforms.Count - 1);
                 YPosition -= 1.5f;
                 PlatformMovement.SpeedMultiplier += -0.05f;
+                //PlatformMovement.ChangeEra = !PlatformMovement.ChangeEra;
+                ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().MissMult = 0.05f;
                 noPlatformFrameCount = 0;
                 currentPlatform--;
                 SetPlayerTurn();
                 ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = true;
                 transform.Translate(new Vector3(0, -1.5f, 0));
                 onPlatform = true;
-                if (Player1Turn)
+                if (!Player1Turn)
                 {
                     if (P1Score > ScorePenalty)
                     {
@@ -114,7 +123,7 @@ public class PlayerController : MonoBehaviour
                         P1Score = 0;
                     }
                 }
-                else if (!Player1Turn)
+                else if (Player1Turn)
                 {
                     if (P2Score > ScorePenalty)
                     {
@@ -142,6 +151,7 @@ public class PlayerController : MonoBehaviour
                         SetPlayerTurn();
                         noPlatformFrameCount = 0;
                         PlatformMovement.SpeedMultiplier += 0.05f; //Increases all platforms' speed by this amount
+                        //PlatformMovement.ChangeEra = !PlatformMovement.ChangeEra; //Swaps the era
                         EnablePlatform();
                         if (currentPlatform > 9)
                         {
@@ -159,6 +169,7 @@ public class PlayerController : MonoBehaviour
                 SetPlayerTurn();
                 noPlatformFrameCount = 0;
                 PlatformMovement.SpeedMultiplier += 0.05f; //Increases all platforms' speed by this amount
+                //PlatformMovement.ChangeEra = !PlatformMovement.ChangeEra; //Swaps the era
                 EnablePlatform();
                 if (currentPlatform > 9)
                 {
@@ -177,6 +188,12 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Platform")
         {
             onPlatform = true;
+            if (!other.gameObject.GetComponentInParent<EraChange>().hasChanged)
+            {
+                EraChange.ChangeEra = !EraChange.ChangeEra; //Swaps the era
+				EraChange1.ChangeEra = !EraChange1.ChangeEra;
+            }
+            other.gameObject.GetComponentInParent<EraChange>().hasChanged = true;
         }
         else if (other.gameObject.tag == "Point0") 
         {
@@ -263,10 +280,9 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.tag == "PowerUp2")
         {
             ActivePlatforms[currentPlatform].SetActive(false);
-            Transform position = ActivePlatforms[currentPlatform + 1].transform;
-            //ActivePlatforms[currentPlatform] = Obstacles[Random.Range(0, Obstacles.Length)];
-            ActivePlatforms[currentPlatform] = Instantiate(Obstacles[Random.Range(0, Obstacles.Length)], position);
-            //ActivePlatforms[currentPlatform].transform.position = position;
+            Vector3 position = ActivePlatforms[currentPlatform].transform.position;
+            Quaternion rotation = ActivePlatforms[currentPlatform].transform.rotation;
+            ActivePlatforms[currentPlatform] = Instantiate(Obstacles[Random.Range(0, Obstacles.Length)], position, rotation);
             ActivePlatforms[currentPlatform].SetActive(true);
         }
         else if (other.gameObject.tag == "Obstacle")
@@ -336,17 +352,14 @@ public class PlayerController : MonoBehaviour
             }
             if (P1Win > P2Win)
             {
-                Debug.Log("Player 1 Wins");
                 GameOverIcon.GetComponent<Image>().sprite = GameOverIcons[1];
             }
             else if (P1Win < P2Win)
             {
-                Debug.Log("Player 2 Wins");
                 GameOverIcon.GetComponent<Image>().sprite = GameOverIcons[2];
             }
             else
             {
-                Debug.Log("Draw");
                 GameOverIcon.GetComponent<Image>().sprite = GameOverIcons[0];
             }
             //Enable play again/main menu buttons
@@ -370,6 +383,8 @@ public class PlayerController : MonoBehaviour
             onPlatform = true;
             noPlatformFrameCount = 0;
             PlatformMovement.SpeedMultiplier = 1;
+			EraChange.ChangeEra = true;
+			EraChange1.ChangeEra = true;
             for (int i = 0; i < Platforms.Count; i++)
             {
                 Platforms[i].SetActive(false);
@@ -417,6 +432,13 @@ public class PlayerController : MonoBehaviour
         }
         GameTimer = 60f;
         RoundEnded = false;
+        Time.timeScale = 1;
+    }
+
+    public void BtnPlay()
+    {
+        MainMenuIcon.SetActive(false);
+        MainMenuButton.SetActive(false);
         Time.timeScale = 1;
     }
 }

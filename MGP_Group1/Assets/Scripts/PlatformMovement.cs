@@ -22,6 +22,12 @@ public class PlatformMovement : MonoBehaviour
         get { return PowerUpMult; }
         set { PowerUpMult *= value; }
     }
+    private float MissedPlatformMult = 1f;
+    public float MissMult
+    {
+        get { return MissedPlatformMult; }
+        set { MissedPlatformMult -= value; }
+    }
 
     public GameObject[] PickUps;
 
@@ -34,6 +40,7 @@ public class PlatformMovement : MonoBehaviour
             PickUps[i].SetActive(true);
         }
         PowerUpMult = 1f;
+        MissedPlatformMult = 1f;
     }
 
     private void Update()
@@ -49,6 +56,6 @@ public class PlatformMovement : MonoBehaviour
                 movingRight = true;
         }
         if (IsMoving)
-            transform.Translate((movingRight ? new Vector3(1, 0) : new Vector3(-1, 0)) * movementSpeed * Time.deltaTime * SpeedMult * PowerUpMult);
+            transform.Translate((movingRight ? new Vector3(1, 0) : new Vector3(-1, 0)) * movementSpeed * Time.deltaTime * SpeedMult * PowerUpMult * MissedPlatformMult);
     }
 }
