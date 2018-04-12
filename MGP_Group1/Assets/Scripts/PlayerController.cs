@@ -191,6 +191,7 @@ public class PlayerController : MonoBehaviour
             if (!other.gameObject.GetComponentInParent<EraChange>().hasChanged)
             {
                 EraChange.ChangeEra = !EraChange.ChangeEra; //Swaps the era
+				EraChange1.ChangeEra = !EraChange1.ChangeEra;
             }
             other.gameObject.GetComponentInParent<EraChange>().hasChanged = true;
         }
@@ -382,6 +383,8 @@ public class PlayerController : MonoBehaviour
             onPlatform = true;
             noPlatformFrameCount = 0;
             PlatformMovement.SpeedMultiplier = 1;
+			EraChange.ChangeEra = true;
+			EraChange1.ChangeEra = true;
             for (int i = 0; i < Platforms.Count; i++)
             {
                 Platforms[i].SetActive(false);

@@ -1057,6 +1057,8 @@ GameObject:
   - component: {fileID: 1739945030}
   - component: {fileID: 1739945027}
   - component: {fileID: 1739945031}
+  - component: {fileID: 1739945032}
+  - component: {fileID: 1739945033}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1082,8 +1084,8 @@ MonoBehaviour:
   - {fileID: 1200622571875606, guid: f89f446c201c47340b54aea06d3ed526, type: 2}
   - {fileID: 1605677740597398, guid: 4249a5d7b374b494d8ca89fc7aa743e7, type: 2}
   - {fileID: 1674495540211418, guid: 9561bfa26ca7b204cae24116a848faa2, type: 2}
-  - {fileID: 1012668515660016, guid: 5afd1308c6fd29f439cf69d69c45b1f1, type: 2}
-  - {fileID: 1816663253821616, guid: 9bc1ffb026b6a0d4aad0b453f087d490, type: 2}
+  - {fileID: 1012668515660016, guid: 0bbf51d99a5396842b9f9616aa928fc7, type: 2}
+  - {fileID: 1816663253821616, guid: 5afd1308c6fd29f439cf69d69c45b1f1, type: 2}
   - {fileID: 1459517068264510, guid: 966a3a54598074e45b2467746897260a, type: 2}
   - {fileID: 1567333701171748, guid: 514b56e5ccfb42248b0fe44eb842e11a, type: 2}
   - {fileID: 1624399684408928, guid: cd51463e0d224c9408b1e62d87cc5c6e, type: 2}
@@ -1148,7 +1150,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 50b06ed8641a40c4a8e891fbce3fd7b7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 484f663a9102d72448af4bfc5ae79525, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1166,7 +1168,7 @@ Transform:
   m_GameObject: {fileID: 1739945026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1185,7 +1187,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.32
+  m_Radius: 3.6
 --- !u!50 &1739945031
 Rigidbody2D:
   serializedVersion: 4
@@ -1206,6 +1208,34 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &1739945032
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1739945026}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 35e0dd3926cf78849a6719d2c7f5a160, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1739945033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1739945026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3857dac4fbbcb94ab56514e6b3a09ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2058585392
 GameObject:
   m_ObjectHideFlags: 0
