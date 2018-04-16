@@ -256,7 +256,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.32}
+  m_Size: {x: 7, y: 6}
   m_EdgeRadius: 0
 --- !u!61 &61063581022312386
 BoxCollider2D:
@@ -331,7 +331,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.32}
+  m_Size: {x: 7, y: 6}
   m_EdgeRadius: 0
 --- !u!61 &61505988406615666
 BoxCollider2D:
@@ -381,7 +381,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.32}
+  m_Size: {x: 7, y: 6}
   m_EdgeRadius: 0
 --- !u!114 &114375306964349606
 MonoBehaviour:
@@ -396,7 +396,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OldEra: {fileID: 21300000, guid: 67cf0d7366d02914eb3f16baab5605b3, type: 3}
   NewEra: {fileID: 21300000, guid: 77382401df2c3854ca6bca8b313475c5, type: 3}
-  Changed: 0
 --- !u!114 &114476840629384916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -440,7 +439,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OldEra: {fileID: 21300000, guid: fe2fd2a9a67d2624db412404f81e27bc, type: 3}
   NewEra: {fileID: 21300000, guid: 0ab2c8050b81d0c4bbdcdd704b28c4ea, type: 3}
-  Changed: 0
 --- !u!114 &114683071790839712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -465,7 +463,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OldEra: {fileID: 21300000, guid: fe2fd2a9a67d2624db412404f81e27bc, type: 3}
   NewEra: {fileID: 21300000, guid: 0ab2c8050b81d0c4bbdcdd704b28c4ea, type: 3}
-  Changed: 0
 --- !u!114 &114961764809524340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -479,7 +476,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OldEra: {fileID: 21300000, guid: fe2fd2a9a67d2624db412404f81e27bc, type: 3}
   NewEra: {fileID: 21300000, guid: 0ab2c8050b81d0c4bbdcdd704b28c4ea, type: 3}
-  Changed: 0
 --- !u!114 &114962516419910890
 MonoBehaviour:
   m_ObjectHideFlags: 1

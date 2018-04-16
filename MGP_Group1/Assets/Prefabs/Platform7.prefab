@@ -284,7 +284,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.32}
+  m_Size: {x: 7, y: 6}
   m_EdgeRadius: 0
 --- !u!61 &61285759848870764
 BoxCollider2D:
@@ -309,7 +309,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.32}
+  m_Size: {x: 7, y: 6}
   m_EdgeRadius: 0
 --- !u!61 &61333362868616562
 BoxCollider2D:
@@ -334,7 +334,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.32}
+  m_Size: {x: 7, y: 6}
   m_EdgeRadius: 0
 --- !u!61 &61451403003676350
 BoxCollider2D:
@@ -384,7 +384,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.32}
+  m_Size: {x: 7, y: 6}
   m_EdgeRadius: 0
 --- !u!114 &114044098077960470
 MonoBehaviour:
@@ -399,7 +399,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OldEra: {fileID: 21300000, guid: fe2fd2a9a67d2624db412404f81e27bc, type: 3}
   NewEra: {fileID: 21300000, guid: 0ab2c8050b81d0c4bbdcdd704b28c4ea, type: 3}
-  Changed: 0
 --- !u!114 &114081334071684962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -424,7 +423,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OldEra: {fileID: 21300000, guid: 67cf0d7366d02914eb3f16baab5605b3, type: 3}
   NewEra: {fileID: 21300000, guid: 77382401df2c3854ca6bca8b313475c5, type: 3}
-  Changed: 0
 --- !u!114 &114173163954678614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -490,7 +488,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OldEra: {fileID: 21300000, guid: fe2fd2a9a67d2624db412404f81e27bc, type: 3}
   NewEra: {fileID: 21300000, guid: 0ab2c8050b81d0c4bbdcdd704b28c4ea, type: 3}
-  Changed: 0
 --- !u!114 &114550682443315710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -504,7 +501,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OldEra: {fileID: 21300000, guid: fe2fd2a9a67d2624db412404f81e27bc, type: 3}
   NewEra: {fileID: 21300000, guid: 0ab2c8050b81d0c4bbdcdd704b28c4ea, type: 3}
-  Changed: 0
 --- !u!114 &114643887475360116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -529,7 +525,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OldEra: {fileID: 21300000, guid: fe2fd2a9a67d2624db412404f81e27bc, type: 3}
   NewEra: {fileID: 21300000, guid: 0ab2c8050b81d0c4bbdcdd704b28c4ea, type: 3}
-  Changed: 0
 --- !u!212 &212523517222740326
 SpriteRenderer:
   m_ObjectHideFlags: 1

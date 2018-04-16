@@ -218,7 +218,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.32}
+  m_Size: {x: 7, y: 6}
   m_EdgeRadius: 0
 --- !u!61 &61481030241820486
 BoxCollider2D:
@@ -243,7 +243,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.32}
+  m_Size: {x: 7, y: 6}
   m_EdgeRadius: 0
 --- !u!61 &61584183921296530
 BoxCollider2D:
@@ -283,7 +283,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OldEra: {fileID: 21300000, guid: fe2fd2a9a67d2624db412404f81e27bc, type: 3}
   NewEra: {fileID: 21300000, guid: 0ab2c8050b81d0c4bbdcdd704b28c4ea, type: 3}
-  Changed: 0
 --- !u!114 &114380626113989802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -308,7 +307,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OldEra: {fileID: 21300000, guid: d04d7632157d1e44994a5bd4a794a4c6, type: 3}
   NewEra: {fileID: 21300000, guid: 96f4e0070c032a24395904cf85c56a1f, type: 3}
-  Changed: 0
 --- !u!114 &114717861718135372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -361,7 +359,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OldEra: {fileID: 21300000, guid: fe2fd2a9a67d2624db412404f81e27bc, type: 3}
   NewEra: {fileID: 21300000, guid: 0ab2c8050b81d0c4bbdcdd704b28c4ea, type: 3}
-  Changed: 0
 --- !u!212 &212406510508627122
 SpriteRenderer:
   m_ObjectHideFlags: 1
