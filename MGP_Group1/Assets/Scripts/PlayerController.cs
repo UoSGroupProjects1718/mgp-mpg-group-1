@@ -192,6 +192,7 @@ public class PlayerController : MonoBehaviour
             {
                 EraChange.ChangeEra = !EraChange.ChangeEra; //Swaps the era
 				EraChange1.ChangeEra = !EraChange1.ChangeEra;
+                EraChange2.ChangeEra = !EraChange2.ChangeEra;
             }
             other.gameObject.GetComponentInParent<EraChange>().hasChanged = true;
         }
@@ -280,9 +281,15 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.tag == "PowerUp2")
         {
             ActivePlatforms[currentPlatform].SetActive(false);
+            float movementSpeed = ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().moveSpeed;
+            bool movingRight = ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().moveRight;
+            float PowerUpMult = ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().SpeedIncrease;
             Vector3 position = ActivePlatforms[currentPlatform].transform.position;
             Quaternion rotation = ActivePlatforms[currentPlatform].transform.rotation;
             ActivePlatforms[currentPlatform] = Instantiate(Obstacles[Random.Range(0, Obstacles.Length)], position, rotation);
+            ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().moveSpeed = movementSpeed;
+            ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().moveRight = movingRight;
+            ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().SpeedIncrease = PowerUpMult;
             ActivePlatforms[currentPlatform].SetActive(true);
         }
         else if (other.gameObject.tag == "Obstacle")
@@ -385,6 +392,7 @@ public class PlayerController : MonoBehaviour
             PlatformMovement.SpeedMultiplier = 1;
 			EraChange.ChangeEra = true;
 			EraChange1.ChangeEra = true;
+            EraChange2.ChangeEra = true;
             for (int i = 0; i < Platforms.Count; i++)
             {
                 Platforms[i].SetActive(false);

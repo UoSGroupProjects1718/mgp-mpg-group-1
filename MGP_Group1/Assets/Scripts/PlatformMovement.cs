@@ -8,7 +8,17 @@ public class PlatformMovement : MonoBehaviour
     public float HorizontalTravel = 5f;
 
     private float movementSpeed;
+    public float moveSpeed
+    {
+        get { return movementSpeed; }
+        set { movementSpeed = value; }
+    }
     private bool movingRight = true;
+    public bool moveRight
+    {
+        get { return movingRight; }
+        set { movingRight = value; }
+    }
 
     private static float SpeedMult = 1f;
     public static float SpeedMultiplier
