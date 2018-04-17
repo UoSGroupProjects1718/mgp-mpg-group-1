@@ -159,7 +159,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.MGP_Group1.Time_Flipper
-    Standalone: com.MGP_Group1.MGP_Group1
+    Standalone: com.MGP_Group1.Time_Flipper
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
