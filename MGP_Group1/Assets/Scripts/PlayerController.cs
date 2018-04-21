@@ -157,6 +157,10 @@ public class PlayerController : MonoBehaviour
                         {
                             ActivePlatforms[currentPlatform - 10].SetActive(false);
                         }
+                        if (currentPlatform > 11)
+                        {
+                            ActivePlatforms[currentPlatform - 12] = null;
+                        }
                     }    
                 }    
             }
