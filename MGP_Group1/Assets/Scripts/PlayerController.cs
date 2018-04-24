@@ -103,7 +103,9 @@ public class PlayerController : MonoBehaviour
                 ActivePlatforms.RemoveAt(ActivePlatforms.Count - 1);
                 YPosition -= 1.5f;
                 PlatformMovement.SpeedMultiplier += -0.05f;
-                //PlatformMovement.ChangeEra = !PlatformMovement.ChangeEra;
+                //EraChange.ChangeEra = !EraChange.ChangeEra; //Swaps the era
+                //EraChange1.ChangeEra = !EraChange1.ChangeEra;
+                //EraChange2.ChangeEra = !EraChange2.ChangeEra;
                 ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().MissMult = 0.05f;
                 noPlatformFrameCount = 0;
                 currentPlatform--;
@@ -150,7 +152,6 @@ public class PlayerController : MonoBehaviour
                         SetPlayerTurn();
                         noPlatformFrameCount = 0;
                         PlatformMovement.SpeedMultiplier += 0.05f; //Increases all platforms' speed by this amount
-                        //PlatformMovement.ChangeEra = !PlatformMovement.ChangeEra; //Swaps the era
                         EnablePlatform();
                         if (currentPlatform > 9)
                         {
@@ -172,7 +173,9 @@ public class PlayerController : MonoBehaviour
                 SetPlayerTurn();
                 noPlatformFrameCount = 0;
                 PlatformMovement.SpeedMultiplier += 0.05f; //Increases all platforms' speed by this amount
-                //PlatformMovement.ChangeEra = !PlatformMovement.ChangeEra; //Swaps the era
+                //EraChange.ChangeEra = !EraChange.ChangeEra; //Swaps the era
+                //EraChange1.ChangeEra = !EraChange1.ChangeEra;
+                //EraChange2.ChangeEra = !EraChange2.ChangeEra;
                 EnablePlatform();
                 if (currentPlatform > 9)
                 {
@@ -191,10 +194,10 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Platform")
         {
             onPlatform = true;
-            if (!other.gameObject.GetComponentInParent<EraChange>().hasChanged)
+            if (!other.gameObject.GetComponentInParent<EraChange>().hasChanged) //Removing if prevented obstacles desyncing but caused changes to occur on missed platforms
             {
                 EraChange.ChangeEra = !EraChange.ChangeEra; //Swaps the era
-				EraChange1.ChangeEra = !EraChange1.ChangeEra;
+                EraChange1.ChangeEra = !EraChange1.ChangeEra;
                 EraChange2.ChangeEra = !EraChange2.ChangeEra;
             }
             other.gameObject.GetComponentInParent<EraChange>().hasChanged = true;
@@ -311,6 +314,12 @@ public class PlayerController : MonoBehaviour
             ActivePlatforms[currentPlatform].GetComponent<PlatformMovement>().IsMoving = true;
             transform.Translate(new Vector3(0, -1.5f, 0));
             onPlatform = true;
+            //Attempt at fix for "Obstacles temporarily desync themes from player turns"
+            //Completely desynced themes from player turns instead
+            //EraChange.ChangeEra = !EraChange.ChangeEra; //Swaps the era
+            //EraChange1.ChangeEra = !EraChange1.ChangeEra;
+            //EraChange2.ChangeEra = !EraChange2.ChangeEra;
+            //other.gameObject.GetComponentInParent<EraChange>().hasChanged = false;
         }
         P1ScoreText.text = "Player 1 Score: " + P1Score;
         P2ScoreText.text = "Player 2 Score: " + P2Score;
