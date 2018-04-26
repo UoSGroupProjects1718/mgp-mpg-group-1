@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PostProcessing;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -199,6 +200,7 @@ public class PlayerController : MonoBehaviour
                 EraChange.ChangeEra = !EraChange.ChangeEra; //Swaps the era
                 EraChange1.ChangeEra = !EraChange1.ChangeEra;
                 EraChange2.ChangeEra = !EraChange2.ChangeEra;
+                Camera.GetComponent<PostProcessingBehaviour>().enabled = !Camera.GetComponent<PostProcessingBehaviour>().enabled;
             }
             other.gameObject.GetComponentInParent<EraChange>().hasChanged = true;
         }
